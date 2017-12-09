@@ -1,4 +1,4 @@
-package com.davidoddy.autoplay.engine
+package com.davidoddy.autoplay.bluetooth
 
 import android.animation.ValueAnimator
 import android.bluetooth.BluetoothDevice
@@ -8,12 +8,16 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.media.AudioManager
 import android.util.Log
+import com.davidoddy.autoplay.model.CountdownProgress
+import com.davidoddy.autoplay.audio.IMediaLauncher
+import com.davidoddy.autoplay.audio.IVolumeAdjuster
+import com.davidoddy.autoplay.model.Settings
 import org.greenrobot.eventbus.EventBus
 
 /**
  * Created by doddy on 12/6/17.
  */
-class BluetoothWatcher(val context: Context, val sharedPreferences: SharedPreferences, val mediaLauncherFactory: IMediaLauncher.Factory) : BroadcastReceiver() {
+class BluetoothWatcher(val context: Context, val sharedPreferences: SharedPreferences, val mediaLauncherFactory: IMediaLauncher.Factory, val audioManager: AudioManager, val volumeAdjuster: IVolumeAdjuster) : BroadcastReceiver() {
 
     companion object {
         val TAG = BluetoothWatcher::class.simpleName
@@ -61,6 +65,7 @@ class BluetoothWatcher(val context: Context, val sharedPreferences: SharedPrefer
                     EventBus.getDefault().post(CountdownProgress(currentValue))
                     if (currentValue == 100) {
                         launchAudio(settings)
+                        setVolume(settings)
                     }
                 }}
 
@@ -70,6 +75,12 @@ class BluetoothWatcher(val context: Context, val sharedPreferences: SharedPrefer
 
     private fun launchAudio(settings: Settings) {
         Log.v(TAG, "Launching audio: ${settings.playlist}")
-        mediaLauncherFactory.createForSettings(this.context, this.context.getSystemService(Context.AUDIO_SERVICE) as AudioManager, settings).playMusic()
+        IMediaLauncher.createForSettings(this.context, this.audioManager, settings).playMusic()
+    }
+
+
+    private fun setVolume(settings: Settings) {
+        Log.v(TAG, "Setting volume: ${settings.volume }")
+        this.volumeAdjuster.setVolume(settings.volume ?: return)
     }
 }

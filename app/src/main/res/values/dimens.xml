@@ -2,4 +2,5 @@
     <dimen name="fab_margin">16dp</dimen>
 
     <dimen name="page_padding">20dp</dimen>
+    <dimen name="page_padding_with_fab">120dp</dimen>
 </resources>

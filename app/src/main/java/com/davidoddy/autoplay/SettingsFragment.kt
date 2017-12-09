@@ -8,7 +8,8 @@ import android.preference.CheckBoxPreference
 import android.preference.ListPreference
 import android.preference.PreferenceFragment
 import android.preference.PreferenceManager
-import com.davidoddy.autoplay.engine.PlaylistProvider
+import com.davidoddy.autoplay.playlist.PlaylistProvider
+import com.davidoddy.autoplay.ui.SliderPreference
 
 
 class SettingsFragment : PreferenceFragment() {
@@ -35,6 +36,7 @@ class SettingsFragment : PreferenceFragment() {
         loadDevices()
         loadPlaylists()
         loadDelay()
+        loadVolume()
     }
 
 
@@ -81,6 +83,24 @@ class SettingsFragment : PreferenceFragment() {
 
     private fun loadDelay() {
         val key = resources.getString(R.string.pref_delay)
+        val preference = (findPreference(key) as SliderPreference)
+        preference.displayCalculator = object : SliderPreference.CalculateDisplayValue {
+            override fun calculate(rawValue: Int?) : Int? {
+                rawValue ?: return null
+                return rawValue / 1000
+            }
+        }
+        preference.max = resources.getInteger(R.integer.pref_delay_max)
+        preference.default = resources.getInteger(R.integer.pref_delay_default)
+
+        setCurrentValue(key)
+    }
+
+    private fun loadVolume() {
+        val key = resources.getString(R.string.pref_volume)
+        val preference = (findPreference(key) as SliderPreference)
+        preference.max = resources.getInteger(R.integer.pref_volume_max)
+        preference.default = resources.getInteger(R.integer.pref_volume_default)
         setCurrentValue(key)
     }
 
@@ -97,6 +117,12 @@ class SettingsFragment : PreferenceFragment() {
         val preference = findPreference(key)
         when (preference) {
             is ListPreference -> preference.setSummary(preference.entry)
+            is SliderPreference -> {
+                preference.setSummary(when {
+                    preference.suffix == null -> "${preference.displayValue ?: 0}"
+                    else -> "${preference.displayValue ?: 0} ${preference.suffix}"
+                })
+            }
             is CheckBoxPreference -> {
                 if (preference.key.equals(getString(R.string.pref_use_playlist))) {
                     if (preference.isChecked) {

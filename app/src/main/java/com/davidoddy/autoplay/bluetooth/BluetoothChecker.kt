@@ -1,4 +1,4 @@
-package com.davidoddy.autoplay.engine
+package com.davidoddy.autoplay.bluetooth
 
 import android.bluetooth.BluetoothAdapter
 

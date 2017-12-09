@@ -5,20 +5,21 @@ import android.app.PendingIntent
 import android.app.Service
 import android.bluetooth.BluetoothDevice
 import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.media.AudioManager
 import android.preference.PreferenceManager
 import android.util.Log
-import com.davidoddy.autoplay.engine.BluetoothWatcher
-import com.davidoddy.autoplay.engine.IMediaLauncher
-import com.davidoddy.autoplay.engine.PlayMediaLauncher
-import com.davidoddy.autoplay.engine.PlaylistProvider
+import com.davidoddy.autoplay.bluetooth.BluetoothWatcher
+import com.davidoddy.autoplay.audio.IMediaLauncher
+import com.davidoddy.autoplay.audio.VolumeAdjuster
 
 class WatcherService : Service() {
 
     companion object {
         val TAG = WatcherService::class.simpleName
-        const val CHANNEL: String = "DEFAULT_CHANNEL"
+        const val NOTIFICATION_CHANNEL: String = "DEFAULT_CHANNEL"
         const val NOTIFICATION_ID: Int = 1
     }
 
@@ -37,13 +38,14 @@ class WatcherService : Service() {
 
     private fun startForeground() {
         val notificationIntent = Intent(this, MainActivity::class.java)
-        val pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0)
-        val notification = Notification.Builder(this, CHANNEL)
+        val pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT)
+        val notification = Notification.Builder(this, NOTIFICATION_CHANNEL)
                 .setContentTitle(getText(R.string.notification_title))
                 .setContentText(getText(R.string.notification_text))
                 .setContentIntent(pendingIntent)
+                .setSmallIcon(android.R.drawable.stat_sys_data_bluetooth)
                 .build()
-
+        notification.flags = Notification.FLAG_ONGOING_EVENT or Notification.FLAG_NO_CLEAR
         startForeground(NOTIFICATION_ID, notification)
     }
 
@@ -61,7 +63,12 @@ class WatcherService : Service() {
 
     private fun listenForBluetooth() {
         Log.v(TAG, "Configuring watcher...")
-        this.broadcastReceiver = BluetoothWatcher(this.applicationContext, PreferenceManager.getDefaultSharedPreferences(this.applicationContext), IMediaLauncher.Factory)
+        val audioManager = getSystemService(Context.AUDIO_SERVICE) as AudioManager
+        this.broadcastReceiver = BluetoothWatcher(this.applicationContext
+                , PreferenceManager.getDefaultSharedPreferences(this.applicationContext)
+                , IMediaLauncher
+                , audioManager
+                , VolumeAdjuster(audioManager))
 
         val intentFilter = IntentFilter()
         intentFilter.addAction(BluetoothDevice.ACTION_ACL_CONNECTED)

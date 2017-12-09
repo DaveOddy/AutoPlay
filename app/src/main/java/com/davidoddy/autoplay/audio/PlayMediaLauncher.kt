@@ -1,7 +1,6 @@
-package com.davidoddy.autoplay.engine
+package com.davidoddy.autoplay.audio
 
 import android.content.Context
-import android.content.Intent
 import android.media.AudioManager
 import android.util.Log
 import android.view.KeyEvent
@@ -21,10 +20,10 @@ class PlayMediaLauncher(val context: Context, val audioManager: AudioManager) : 
 
     override fun playMusic() {
         if (this.audioManager.isMusicActive) {
-            Log.v(PlayMediaLauncher.TAG, "Music already playing")
+            Log.v(TAG, "Music already playing")
         }
         else {
-            Log.v(PlayMediaLauncher.TAG, "Playing audio")
+            Log.v(TAG, "Playing audio")
             val keyEvent = KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_MEDIA_PLAY)
             this.audioManager.dispatchMediaKeyEvent(keyEvent)
         }

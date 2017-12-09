@@ -1,7 +1,8 @@
-package com.davidoddy.autoplay.engine
+package com.davidoddy.autoplay.audio
 
 import android.content.Context
 import android.media.AudioManager
+import com.davidoddy.autoplay.model.Settings
 
 /**
  * Created by doddy on 12/8/17.

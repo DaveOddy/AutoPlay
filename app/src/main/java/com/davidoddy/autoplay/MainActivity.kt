@@ -11,9 +11,9 @@ import android.text.Html
 import android.view.View
 import android.widget.ProgressBar
 import android.widget.TextView
-import com.davidoddy.autoplay.engine.BluetoothChecker
-import com.davidoddy.autoplay.engine.CountdownProgress
-import com.davidoddy.autoplay.engine.Settings
+import com.davidoddy.autoplay.bluetooth.BluetoothChecker
+import com.davidoddy.autoplay.model.CountdownProgress
+import com.davidoddy.autoplay.model.Settings
 import kotlinx.android.synthetic.main.activity_main.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe

@@ -1,4 +1,4 @@
-package com.davidoddy.autoplay.engine
+package com.davidoddy.autoplay.audio
 
 import android.app.SearchManager
 import android.content.Context
@@ -17,7 +17,7 @@ class PlaylistMediaLauncher(val context: Context, val playlist: String) : IMedia
 
 
     override fun playMusic() {
-        Log.v(PlaylistMediaLauncher.TAG, "Launching intent for playlist: ${playlist}")
+        Log.v(TAG, "Launching intent for playlist: ${playlist}")
         val intent = Intent(MediaStore.INTENT_ACTION_MEDIA_PLAY_FROM_SEARCH)
         intent.putExtra(MediaStore.EXTRA_MEDIA_FOCUS, MediaStore.Audio.Playlists.ENTRY_CONTENT_TYPE)
         intent.putExtra(MediaStore.EXTRA_MEDIA_PLAYLIST, this.playlist)

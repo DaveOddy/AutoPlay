@@ -1,6 +1,4 @@
-package com.davidoddy.autoplay.engine
-
-import android.content.Context
+package com.davidoddy.autoplay.playlist
 
 /**
  * Created by doddy on 12/6/17.

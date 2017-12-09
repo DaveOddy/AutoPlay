@@ -17,13 +17,23 @@
                 android:summary="@string/pref_playlist_summary"
                 android:dependency="@string/pref_use_playlist"
                 android:dialogTitle="@string/pref_playlist_title" />
-        <ListPreference
+        <com.davidoddy.autoplay.ui.SliderPreference
                 android:key="@string/pref_delay"
                 android:title="@string/pref_delay_title"
                 android:dialogTitle="@string/pref_delay_title"
+                android:dialogMessage="@string/pref_delay_summary"
                 android:summary="@string/pref_delay_summary"
-                android:entries="@array/pref_delay_entries"
-                android:entryValues="@array/pref_delay_values"
-                android:defaultValue="@string/pref_delay_default" />
+                android:text="@string/pref_delay_unit"
+                android:max="@integer/pref_delay_max"
+                android:defaultValue="@integer/pref_delay_default" />
+        <com.davidoddy.autoplay.ui.SliderPreference
+                android:key="@string/pref_volume"
+                android:title="@string/pref_volume_title"
+                android:dialogTitle="@string/pref_volume_title"
+                android:dialogMessage="@string/pref_volume_summary"
+                android:summary="@string/pref_volume_summary"
+                android:text="@string/pref_volume_unit"
+                android:max="@integer/pref_volume_max"
+                android:defaultValue="@integer/pref_volume_default" />
     </PreferenceCategory>
 </PreferenceScreen>
