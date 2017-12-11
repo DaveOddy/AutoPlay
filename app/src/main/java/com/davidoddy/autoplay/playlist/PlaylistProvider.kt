@@ -1,21 +1,20 @@
 package com.davidoddy.autoplay.playlist
 
-import android.content.Context
+import android.content.ContentResolver
 import android.net.Uri
 
 /**
  * Created by doddy on 12/6/17.
  */
-class PlaylistProvider(val context: Context) : IPlaylistProvider {
+class PlaylistProvider(val contentResolver: ContentResolver) : IPlaylistProvider {
 
     companion object {
-        val TAG = PlaylistProvider::class.simpleName
         const val URI_PLAYLIST = "content://com.google.android.music.MusicContent/playlists"
         const val COL_NAME = "playlist_name"
     }
 
 
-    override fun getPlaylists(): List<String> {
+    override fun getPlaylists(): List<CharSequence> {
 
         val cursor = queryPlaylists()
         try {
@@ -23,7 +22,7 @@ class PlaylistProvider(val context: Context) : IPlaylistProvider {
             while (cursor.moveToNext()) {
                 list.add(cursor.getString(cursor.getColumnIndex(COL_NAME)))
             }
-            return list
+            return list.sortedBy { it }
         }
         finally {
             cursor.close()
@@ -32,7 +31,7 @@ class PlaylistProvider(val context: Context) : IPlaylistProvider {
 
 
     private fun queryPlaylists() =
-        this.context.contentResolver.query(Uri.parse(URI_PLAYLIST),
+        this.contentResolver.query(Uri.parse(URI_PLAYLIST),
                 arrayOf(COL_NAME),
                 null,
                 null,

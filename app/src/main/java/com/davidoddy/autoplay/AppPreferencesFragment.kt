@@ -12,7 +12,7 @@ import com.davidoddy.autoplay.playlist.PlaylistProvider
 import com.davidoddy.autoplay.ui.SliderPreference
 
 
-class SettingsFragment : PreferenceFragment() {
+class AppPreferencesFragment : PreferenceFragment() {
 
     private var changePreferenceListener: SharedPreferences.OnSharedPreferenceChangeListener? = null
 
@@ -45,13 +45,12 @@ class SettingsFragment : PreferenceFragment() {
         val entries = ArrayList<CharSequence>()
         val values = ArrayList<CharSequence>()
 
-        val bondedDevices = BluetoothAdapter.getDefaultAdapter().bondedDevices
-        for (device in bondedDevices) {
-            if (device.bluetoothClass.hasService(AUDIO)) {
-                entries.add(device.name)
-                values.add(device.address + "|" + device.name)
-            }
-        }
+        BluetoothAdapter.getDefaultAdapter().bondedDevices
+                .filter { it.bluetoothClass.hasService(AUDIO) }
+                .map {
+                    entries.add(it.name)
+                    values.add(it.address + "|" + it.name)
+                }
 
         val key = resources.getString(R.string.pref_device)
         val preference = findPreference(key) as ListPreference
@@ -64,18 +63,24 @@ class SettingsFragment : PreferenceFragment() {
 
     private fun loadPlaylists() {
 
-        val values = ArrayList<CharSequence>()
+//        val values = ArrayList<CharSequence>()
 
-        val playlists = PlaylistProvider(context.applicationContext).getPlaylists()
-        for (playlist in playlists) {
-            values.add(playlist)
-        }
+//        PlaylistProvider(context.applicationContext.contentResolver).getPlaylists()
+//                .distinctBy { it }
+//                .map {
+//                    values.add(it)
+//                }
+
+        val valuesArray:Array<CharSequence> = PlaylistProvider(context.applicationContext.contentResolver).getPlaylists()
+                .distinctBy { it }
+                .map { it }
+                .toTypedArray()
 
         val key = resources.getString(R.string.pref_playlist)
         val preference = findPreference(key) as ListPreference
-        preference.entries = values.toArray(Array<CharSequence>(0, {""}))
-        preference.entryValues = preference.entries
-        preference.setDefaultValue(values[0])
+        preference.entries = valuesArray
+        preference.entryValues = valuesArray
+        preference.setDefaultValue(valuesArray[0])
 
         setCurrentValue(key)
         setCurrentValue(getString(R.string.pref_use_playlist))

@@ -23,13 +23,13 @@
             android:id="@+id/countdownProgress"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/page_padding"
+            android:layout_marginTop="@dimen/page_padding"
             android:layout_marginStart="@dimen/page_padding"
-            android:layout_marginEnd="@dimen/page_padding_with_fab"
+            android:layout_marginEnd="@dimen/page_padding"
             android:visibility="invisible"
             android:max="100"
             android:min="0"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/specification_text"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="parent" />
 

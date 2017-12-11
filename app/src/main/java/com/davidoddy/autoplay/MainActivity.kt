@@ -12,8 +12,8 @@ import android.view.View
 import android.widget.ProgressBar
 import android.widget.TextView
 import com.davidoddy.autoplay.bluetooth.BluetoothChecker
+import com.davidoddy.autoplay.model.AppSettings
 import com.davidoddy.autoplay.model.CountdownProgress
-import com.davidoddy.autoplay.model.Settings
 import kotlinx.android.synthetic.main.activity_main.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -22,10 +22,6 @@ import org.greenrobot.eventbus.ThreadMode
 
 class MainActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferenceChangeListener {
 
-    companion object {
-        val TAG = MainActivity::class.simpleName
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -33,7 +29,7 @@ class MainActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferenceCh
         setSupportActionBar(toolbar)
 
         fab.setOnClickListener { view ->
-            launchSettings(view)
+            launchPreferences(view)
         }
 
         startService()
@@ -64,7 +60,7 @@ class MainActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferenceCh
 
 
     private fun setupUI(sharedPreferences: SharedPreferences?) {
-        val settings = Settings.fromSharedPreferences(this.applicationContext, sharedPreferences)
+        val settings = AppSettings.fromSharedPreferences(this.applicationContext, sharedPreferences)
         val view : TextView = findViewById(R.id.specification_text)
         if (settings == null) {
             view.setText(R.string.home_page_empty)
@@ -75,7 +71,7 @@ class MainActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferenceCh
     }
 
 
-    private fun formatConfigurationForTextView(settings: Settings): CharSequence {
+    private fun formatConfigurationForTextView(settings: AppSettings): CharSequence {
         if (settings.usePlaylist) {
             return Html.fromHtml(String.format(resources.getString(R.string.home_page_pattern_playlist), settings.playlist, settings.deviceName, settings.delayInMilliseconds / 1000), Html.FROM_HTML_MODE_COMPACT)
         }
@@ -90,9 +86,9 @@ class MainActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferenceCh
     }
 
 
-    private fun launchSettings(view: View) {
+    private fun launchPreferences(view: View) {
         if (checkBluetooth()) {
-            startActivity(Intent(this, SettingsActivity::class.java))
+            startActivity(Intent(this, AppPreferencesActivity::class.java))
         }
         else {
             showBluetoothMessage(view)

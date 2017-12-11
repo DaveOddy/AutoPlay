@@ -10,15 +10,14 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.media.AudioManager
 import android.preference.PreferenceManager
-import android.util.Log
-import com.davidoddy.autoplay.bluetooth.BluetoothWatcher
 import com.davidoddy.autoplay.audio.IMediaLauncher
 import com.davidoddy.autoplay.audio.VolumeAdjuster
+import com.davidoddy.autoplay.bluetooth.BluetoothWatcher
+import timber.log.Timber
 
 class WatcherService : Service() {
 
     companion object {
-        val TAG = WatcherService::class.simpleName
         const val NOTIFICATION_CHANNEL: String = "DEFAULT_CHANNEL"
         const val NOTIFICATION_ID: Int = 1
     }
@@ -27,7 +26,7 @@ class WatcherService : Service() {
 
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        Log.v(TAG, "Starting service...")
+        Timber.v("Starting service...")
 
         startForeground()
         listenForBluetooth()
@@ -53,7 +52,7 @@ class WatcherService : Service() {
     override fun onDestroy() {
         super.onDestroy()
 
-        Log.v(TAG, "Destroying service...")
+        Timber.v("Destroying service...")
         unregisterReceiver(this.broadcastReceiver)
         this.broadcastReceiver = null
     }
@@ -62,7 +61,7 @@ class WatcherService : Service() {
 
 
     private fun listenForBluetooth() {
-        Log.v(TAG, "Configuring watcher...")
+        Timber.v("Configuring watcher...")
         val audioManager = getSystemService(Context.AUDIO_SERVICE) as AudioManager
         this.broadcastReceiver = BluetoothWatcher(this.applicationContext
                 , PreferenceManager.getDefaultSharedPreferences(this.applicationContext)
