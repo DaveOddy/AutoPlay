@@ -28,7 +28,7 @@ class PlayMediaLauncherTest {
 
         PlayMediaLauncher(context, audioManager).playMusic()
 
-        val keyEventCaptor: ArgumentCaptor<KeyEvent> = ArgumentCaptor.forClass(KeyEvent::class.java)
+        val keyEventCaptor = ArgumentCaptor.forClass(KeyEvent::class.java)
         Mockito.verify(audioManager).dispatchMediaKeyEvent(keyEventCaptor.capture())
         val keyEvent = keyEventCaptor.value
 

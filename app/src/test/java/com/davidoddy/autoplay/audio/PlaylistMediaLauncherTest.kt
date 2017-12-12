@@ -32,7 +32,7 @@ class PlaylistMediaLauncherTest {
         val testLauncher = PlaylistMediaLauncher(context, dummyPlaylist)
         testLauncher.playMusic()
 
-        val intentCaptor: ArgumentCaptor<Intent> = ArgumentCaptor.forClass(Intent::class.java)
+        val intentCaptor = ArgumentCaptor.forClass(Intent::class.java)
         Mockito.verify(context).startActivity(intentCaptor.capture())
 
         assertEquals("Wrong intent action.", MediaStore.INTENT_ACTION_MEDIA_PLAY_FROM_SEARCH, intentCaptor.value.action)

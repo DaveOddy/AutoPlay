@@ -33,11 +33,11 @@ class PlaylistProviderTest {
 
         val playlists = PlaylistProvider(contentResolver).getPlaylists()
 
-        val uriCaptor: ArgumentCaptor<Uri> = ArgumentCaptor.forClass(Uri::class.java)
-        val columnArrayCaptor: ArgumentCaptor<Array<String>> = ArgumentCaptor.forClass(Array<String>::class.java)
-        val selectionCaptor: ArgumentCaptor<String> = ArgumentCaptor.forClass(String::class.java)
-        val selectionArgsArrayCaptor: ArgumentCaptor<Array<String>> = ArgumentCaptor.forClass(Array<String>::class.java)
-        val orderByCaptor: ArgumentCaptor<String> = ArgumentCaptor.forClass(String::class.java)
+        val uriCaptor = ArgumentCaptor.forClass(Uri::class.java)
+        val columnArrayCaptor = ArgumentCaptor.forClass(Array<String>::class.java)
+        val selectionCaptor = ArgumentCaptor.forClass(String::class.java)
+        val selectionArgsArrayCaptor = ArgumentCaptor.forClass(Array<String>::class.java)
+        val orderByCaptor = ArgumentCaptor.forClass(String::class.java)
 
         Mockito.verify(contentResolver).query(uriCaptor.capture()
                 , columnArrayCaptor.capture()

@@ -16,7 +16,7 @@ import android.widget.TextView
  * Created by doddy on 12/8/17.
  */
 
-class SliderPreference(context: Context, attrs: AttributeSet) : DialogPreference(context, attrs), SeekBar.OnSeekBarChangeListener, View.OnClickListener {
+open class SliderPreference(context: Context, attrs: AttributeSet) : DialogPreference(context, attrs), SeekBar.OnSeekBarChangeListener, View.OnClickListener {
 
     companion object {
         private const val ANDROID_NAMESPACE = "http://schemas.android.com/apk/res/android"
@@ -68,9 +68,9 @@ class SliderPreference(context: Context, attrs: AttributeSet) : DialogPreference
             this.seekBar?.progress = value ?: 0
         }
 
-    val displayValue: Int?
-        get() = calculateForDisplay(this.value)
-
+    open fun getDisplayValue() : Int? {
+        return calculateForDisplay(this.value)        // TODO: Can't use property getter because can't be mocked :(
+    }
 
     var suffix: String? = null
         get() = field
@@ -197,8 +197,9 @@ class SliderPreference(context: Context, attrs: AttributeSet) : DialogPreference
         })
     }
 
-    private fun calculateForDisplay(rawValue: Int?) = this.displayCalculator?.calculate(rawValue) ?: rawValue
-
+    private fun calculateForDisplay(rawValue: Int?) : Int? {
+        return this.displayCalculator?.calculate(rawValue) ?: rawValue
+    }
 
     override fun onStartTrackingTouch(seekBar: SeekBar?) = Unit
 

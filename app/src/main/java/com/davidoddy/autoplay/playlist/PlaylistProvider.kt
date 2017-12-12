@@ -6,7 +6,7 @@ import android.net.Uri
 /**
  * Created by doddy on 12/6/17.
  */
-class PlaylistProvider(val contentResolver: ContentResolver) : IPlaylistProvider {
+open class PlaylistProvider(val contentResolver: ContentResolver) : IPlaylistProvider {
 
     companion object {
         const val URI_PLAYLIST = "content://com.google.android.music.MusicContent/playlists"
