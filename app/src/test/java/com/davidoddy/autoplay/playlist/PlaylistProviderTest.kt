@@ -23,10 +23,10 @@ import org.robolectric.annotation.Config
 @Config(constants = BuildConfig::class)
 class PlaylistProviderTest {
 
-    val dummyPlaylists = arrayOf("Playlist3", "Playlist2", "Playlist1").toList()
+    val dummyPlaylists = arrayOf("Playlist3", "Playlist2", "Playlist1", "Playlist2").toList()
 
     @Test
-    fun getPlaylists_Returns_List_Of_Strings_Sorted_Properly_From_Cursor() {
+    fun getPlaylists_Returns_Distinct_List_Of_Strings_Sorted_Properly_From_Cursor() {
 
         val cursor: Cursor = MockPlaylistCursor(this.dummyPlaylists)
         val contentResolver: ContentResolver = createMockContentResolver(cursor)
@@ -52,9 +52,9 @@ class PlaylistProviderTest {
         Assert.assertNull("Non-null Selection Args", selectionArgsArrayCaptor.value)
         Assert.assertNull("Non-null sort order", orderByCaptor.value)
 
-        for (i in 0..dummyPlaylists.size - 1) {
-            Assert.assertEquals("Playlists not properly returned: ${playlists[i]}, ${dummyPlaylists[2 - i]}", dummyPlaylists[i], playlists[2 - i])
-        }
+        Assert.assertEquals("Playlists not properly returned: ${playlists[0]}, ${dummyPlaylists[2]}", dummyPlaylists[2], playlists[0])
+        Assert.assertEquals("Playlists not properly returned: ${playlists[1]}, ${dummyPlaylists[1]}", dummyPlaylists[1], playlists[1])
+        Assert.assertEquals("Playlists not properly returned: ${playlists[2]}, ${dummyPlaylists[0]}", dummyPlaylists[0], playlists[2])
     }
 
 

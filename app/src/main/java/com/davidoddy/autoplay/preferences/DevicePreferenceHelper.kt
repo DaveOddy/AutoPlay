@@ -11,18 +11,20 @@ class DevicePreferenceHelper(val bluetoothAdapter: BluetoothAdapter) : ListPrefe
 
     override fun loadPreferenceList(preference: ListPreference) {
 
-        val entries = ArrayList<CharSequence>()
-        val values = ArrayList<CharSequence>()
-
-        this.bluetoothAdapter.bondedDevices
+        val devices = this.bluetoothAdapter.bondedDevices
+                .asSequence()
                 .filter { it.bluetoothClass.hasService(BluetoothClass.Service.AUDIO) }
-                .map {
-                    entries.add(it.name)
-                    values.add("${it.address}|${it.name}")
-                }
+                .sortedBy { it.name.toLowerCase() }
+                .toList()
 
-        setArrays(preference
-                , entries.toArray(Array<CharSequence>(0, {""}))
-                , values.toArray(Array<CharSequence>(0, {""})))
+        val entries: Array<CharSequence> = devices
+                .map { it.name }
+                .toTypedArray()
+
+        val values: Array<CharSequence> = devices
+                .map { "${it.address}|${it.name}" }
+                .toTypedArray()
+
+        setArrays(preference, entries, values)
     }
 }

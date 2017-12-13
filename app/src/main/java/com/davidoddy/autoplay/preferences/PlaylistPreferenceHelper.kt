@@ -11,7 +11,6 @@ class PlaylistPreferenceHelper(val playlistProvider: PlaylistProvider) : ListPre
     override fun loadPreferenceList(preference: ListPreference) {
 
         val valuesArray: Array<CharSequence> = playlistProvider.getPlaylists()
-                .distinctBy { it }
                 .toTypedArray()
 
         setArrays(preference, valuesArray, valuesArray)

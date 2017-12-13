@@ -18,11 +18,12 @@ open class PlaylistProvider(val contentResolver: ContentResolver) : IPlaylistPro
 
         val cursor = queryPlaylists()
         try {
-            val list = ArrayList<String>(cursor.count)
-            while (cursor.moveToNext()) {
-                list.add(cursor.getString(cursor.getColumnIndex(COL_NAME)))
-            }
-            return list.sortedBy { it }
+            val colIndex = cursor.getColumnIndex(COL_NAME)
+            return generateSequence { if (cursor.moveToNext()) cursor else null }
+                    .map { c -> c.getString(colIndex) }
+                    .distinctBy { it }
+                    .sortedBy { it }
+                    .toList()
         }
         finally {
             cursor.close()
