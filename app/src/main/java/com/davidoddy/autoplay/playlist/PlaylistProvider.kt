@@ -6,7 +6,7 @@ import android.net.Uri
 /**
  * Created by doddy on 12/6/17.
  */
-open class PlaylistProvider(val contentResolver: ContentResolver) : IPlaylistProvider {
+open class PlaylistProvider(private val contentResolver: ContentResolver) : IPlaylistProvider {
 
     companion object {
         const val URI_PLAYLIST = "content://com.google.android.music.MusicContent/playlists"
@@ -17,16 +17,16 @@ open class PlaylistProvider(val contentResolver: ContentResolver) : IPlaylistPro
     override fun getPlaylists(): List<CharSequence> {
 
         val cursor = queryPlaylists()
-        try {
+        return try {
             val colIndex = cursor.getColumnIndex(COL_NAME)
-            return generateSequence { if (cursor.moveToNext()) cursor else null }
+            generateSequence { if (cursor.moveToNext()) cursor else null }
                     .map { c -> c.getString(colIndex) }
                     .distinctBy { it }
                     .sortedBy { it }
                     .toList()
         }
         finally {
-            cursor.close()
+            cursor?.close()
         }
     }
 

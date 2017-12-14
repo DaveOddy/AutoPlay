@@ -8,7 +8,7 @@ import timber.log.Timber
 /**
  * Created by doddy on 12/8/17.
  */
-class PlayMediaLauncher(val context: Context, val audioManager: AudioManager) : IMediaLauncher {
+class PlayMediaLauncher(val context: Context, private val audioManager: AudioManager) : IMediaLauncher {
 
     override fun playMusic() {
         if (this.audioManager.isMusicActive) {

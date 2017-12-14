@@ -8,7 +8,7 @@ import android.database.DataSetObserver
 import android.net.Uri
 import android.os.Bundle
 import com.davidoddy.autoplay.BuildConfig
-import junit.framework.Assert
+import org.junit.Assert
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.ArgumentCaptor
@@ -23,7 +23,7 @@ import org.robolectric.annotation.Config
 @Config(constants = BuildConfig::class)
 class PlaylistProviderTest {
 
-    val dummyPlaylists = arrayOf("Playlist3", "Playlist2", "Playlist1", "Playlist2").toList()
+    private val dummyPlaylists = arrayOf("Playlist3", "Playlist2", "Playlist1", "Playlist2").toList()
 
     @Test
     fun getPlaylists_Returns_Distinct_List_Of_Strings_Sorted_Properly_From_Cursor() {
@@ -65,9 +65,9 @@ class PlaylistProviderTest {
         Mockito.`when`(contentResolver.query(
                 Mockito.any(Uri::class.java),
                 Mockito.any(Array<String>::class.java),
-                Mockito.anyString(),
-                Mockito.any(Array<String>::class.java),
-                Mockito.anyString()
+                Mockito.isNull(),
+                Mockito.isNull(),
+                Mockito.isNull()
         )).thenReturn(cursor)
 
         return contentResolver
@@ -87,35 +87,33 @@ class PlaylistProviderTest {
         override fun setExtras(extras: Bundle?) {}
 
         override fun moveToPosition(position: Int): Boolean {
-            if ((0..playlists.size - 1).contains( position)) {
+            return if ((0 until playlists.size).contains( position)) {
                 this.itemIndex = position
-                return true
-            }
-            else {
-                return false
+                true
+            } else {
+                false
             }
         }
 
         override fun getLong(columnIndex: Int): Long = 0
 
         override fun moveToFirst(): Boolean {
-            if (this.playlists.size > 0) {
+            return if (this.playlists.isNotEmpty()) {
                 this.itemIndex = 0
-                return true
+                true
             } else {
-                return false
+                false
             }
         }
 
         override fun getFloat(columnIndex: Int): Float = 0f
 
         override fun moveToPrevious(): Boolean {
-            if (this.itemIndex > 0) {
+            return if (this.itemIndex > 0) {
                 this.itemIndex--
-                return true
-            }
-            else {
-                return false
+                true
+            } else {
+                false
             }
         }
 
@@ -136,9 +134,10 @@ class PlaylistProviderTest {
         override fun getColumnIndexOrThrow(columnName: String?): Int =
             when (columnName) {
                 PlaylistProvider.COL_NAME -> 0
-                else -> throw IllegalArgumentException("Unknown column name: ${columnName}")
+                else -> throw IllegalArgumentException("Unknown column name: $columnName")
             }
 
+        @Deprecated("Used for mock override.")
         override fun requery(): Boolean {
             this.itemIndex = 0
             return true
@@ -163,12 +162,11 @@ class PlaylistProviderTest {
         override fun registerDataSetObserver(observer: DataSetObserver?) {}
 
         override fun moveToNext(): Boolean {
-            if (this.itemIndex < (this.playlists.size - 1)) {
+            return if (this.itemIndex < (this.playlists.size - 1)) {
                 this.itemIndex++
-                return true
-            }
-            else {
-                return false
+                true
+            } else {
+                false
             }
         }
 
@@ -179,15 +177,15 @@ class PlaylistProviderTest {
         override fun registerContentObserver(observer: ContentObserver?) {}
 
         override fun moveToLast(): Boolean {
-            if (this.playlists.size > 0) {
+            return if (this.playlists.isNotEmpty()) {
                 this.itemIndex = this.playlists.size - 1
-                return true
-            }
-            else {
-                return false
+                true
+            } else {
+                false
             }
         }
 
+        @Deprecated("Used for mock override.")
         override fun deactivate() {}
 
         override fun getNotificationUri(): Uri = Uri.EMPTY
@@ -195,7 +193,7 @@ class PlaylistProviderTest {
         override fun getColumnName(columnIndex: Int): String =
                 when (columnIndex) {
                     0 -> PlaylistProvider.COL_NAME
-                    else -> throw IllegalArgumentException("Unknown column index: ${columnIndex}")
+                    else -> throw IllegalArgumentException("Unknown column index: $columnIndex")
                 }
 
 
@@ -212,17 +210,16 @@ class PlaylistProviderTest {
         override fun getString(columnIndex: Int): String =
                 when (columnIndex) {
                     0 -> this.playlists[this.itemIndex]
-                    else -> throw IllegalArgumentException("Unknown column index: ${columnIndex}")
+                    else -> throw IllegalArgumentException("Unknown column index: $columnIndex")
                 }
 
         override fun move(offset: Int): Boolean {
             val targetPosition = this.itemIndex + offset
-            if ((0..this.playlists.size - 1).contains(targetPosition)) {
+            return if ((0 until this.playlists.size).contains(targetPosition)) {
                 this.itemIndex = targetPosition
-                return true
-            }
-            else {
-                return false
+                true
+            } else {
+                false
             }
         }
 

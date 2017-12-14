@@ -4,7 +4,7 @@ import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothClass
 import android.bluetooth.BluetoothDevice
 import android.preference.ListPreference
-import junit.framework.Assert
+import org.junit.Assert
 import org.junit.Test
 import org.mockito.ArgumentCaptor
 import org.mockito.Mockito
@@ -14,17 +14,17 @@ import org.mockito.Mockito
  */
 class DevicePreferenceHelperTest {
 
-    val device1Address = "00:00:00:00:00"
-    val device2Address = "00:00:00:00:01"
-    val device3Address = "00:00:00:00:02"
+    private val device1Address = "00:00:00:00:00"
+    private val device2Address = "00:00:00:00:01"
+    private val device3Address = "00:00:00:00:02"
 
-    val device1Name = "Device1"
-    val device2Name = "Device2"
-    val device3Name = "Device3"
+    private val device1Name = "Device1"
+    private val device2Name = "Device2"
+    private val device3Name = "Device3"
 
-    val device1hasAudio = true
-    val device2hasAudio = false
-    val device3hasAudio = true
+    private val device1hasAudio = true
+    private val device2hasAudio = false
+    private val device3hasAudio = true
 
 
     @Test
@@ -42,10 +42,10 @@ class DevicePreferenceHelperTest {
         val defaultValueCaptor = ArgumentCaptor.forClass(String::class.java)
         val summaryCaptor = ArgumentCaptor.forClass(String::class.java)
 
-        Mockito.verify(preference).setEntries(entriesCaptor.capture())
-        Mockito.verify(preference).setEntryValues(entryValuesCaptor.capture())
+        Mockito.verify(preference).entries = entriesCaptor.capture()
+        Mockito.verify(preference).entryValues = entryValuesCaptor.capture()
         Mockito.verify(preference).setDefaultValue(defaultValueCaptor.capture())
-        Mockito.verify(preference).setSummary(summaryCaptor.capture())
+        Mockito.verify(preference).summary = summaryCaptor.capture()
 
         Assert.assertEquals("Wrong array length for entries.", 2, entriesCaptor.value.size)
         Assert.assertEquals("Wrong entry #1.", device1Name, entriesCaptor.value[0])
@@ -76,10 +76,10 @@ class DevicePreferenceHelperTest {
         val entryValuesCaptor = ArgumentCaptor.forClass(Array<CharSequence>::class.java)
         val summaryCaptor = ArgumentCaptor.forClass(String::class.java)
 
-        Mockito.verify(preference).setEntries(entriesCaptor.capture())
-        Mockito.verify(preference).setEntryValues(entryValuesCaptor.capture())
+        Mockito.verify(preference).entries = entriesCaptor.capture()
+        Mockito.verify(preference).entryValues = entryValuesCaptor.capture()
         Mockito.verify(preference, Mockito.never()).setDefaultValue(Mockito.any())
-        Mockito.verify(preference).setSummary(summaryCaptor.capture())
+        Mockito.verify(preference).summary = summaryCaptor.capture()
 
         Assert.assertEquals("Wrong array length for entries.", 0, entriesCaptor.value.size)
         Assert.assertEquals("Wrong array length for values.", 0, entryValuesCaptor.value.size)

@@ -1,7 +1,7 @@
 package com.davidoddy.autoplay.preferences
 
 import com.davidoddy.autoplay.ui.SliderPreference
-import junit.framework.Assert
+import org.junit.Assert
 import org.junit.Test
 import org.mockito.ArgumentCaptor
 import org.mockito.Mockito
@@ -11,15 +11,17 @@ import org.mockito.Mockito
  */
 class SliderPreferenceHelperTest {
 
-    val MAX: Int = 100
-    val DEFAULT: Int = 50
+    companion object {
+        const private val MAX: Int = 100
+        const private val DEFAULT: Int = 50
+    }
 
     @Test
     fun loadPreferenceSlider_Sets_Correct_Display_Calculator() {
 
         val displayCalculator = object : SliderPreference.CalculateDisplayValue {
             override fun calculate(rawValue: Int?): Int? {
-                return rawValue;
+                return rawValue
             }
         }
 
@@ -44,72 +46,72 @@ class SliderPreferenceHelperTest {
     @Test
     fun loadPreferenceSlider_Sets_Correct_Display_With_Suffix_And_NonNull_Display_Value() {
 
-        val SUFFIX = "TEST"
-        val DISPLAY_VALUE = 100
+        val suffix = "TEST"
+        val displayValue = 100
 
         val preference = Mockito.mock(SliderPreference::class.java)
-        preference.suffix = SUFFIX
-        Mockito.`when`(preference.getDisplayValue()).thenReturn(DISPLAY_VALUE)
+        preference.suffix = suffix
+        Mockito.`when`(preference.getDisplayValue()).thenReturn(displayValue)
 
         SliderPreferenceHelper().setCurrentPreferenceDisplay(preference)
 
         val summaryCaptor = ArgumentCaptor.forClass(CharSequence::class.java)
-        Mockito.verify(preference).setSummary(summaryCaptor.capture())
+        Mockito.verify(preference).summary = summaryCaptor.capture()
 
-        Assert.assertEquals("Wrong summary with suffix.", "$DISPLAY_VALUE $SUFFIX", summaryCaptor.value)
+        Assert.assertEquals("Wrong summary with suffix.", "$displayValue $suffix", summaryCaptor.value)
     }
 
     @Test
     fun loadPreferenceSlider_Sets_Correct_Display_Without_Suffix_And_NonNull_Display_Value() {
 
-        val SUFFIX = null
-        val DISPLAY_VALUE = 100
+        val suffix = null
+        val displayValue = 100
 
         val preference = Mockito.mock(SliderPreference::class.java)
-        preference.suffix = SUFFIX
+        preference.suffix = suffix
         preference.displayCalculator
-        Mockito.`when`(preference.getDisplayValue()).thenReturn(DISPLAY_VALUE)
+        Mockito.`when`(preference.getDisplayValue()).thenReturn(displayValue)
 
         SliderPreferenceHelper().setCurrentPreferenceDisplay(preference)
 
         val summaryCaptor = ArgumentCaptor.forClass(CharSequence::class.java)
-        Mockito.verify(preference).setSummary(summaryCaptor.capture())
+        Mockito.verify(preference).summary = summaryCaptor.capture()
 
-        Assert.assertEquals("Wrong summary without suffix.", DISPLAY_VALUE.toString(), summaryCaptor.value)
+        Assert.assertEquals("Wrong summary without suffix.", displayValue.toString(), summaryCaptor.value)
     }
 
     @Test
     fun loadPreferenceSlider_Sets_Correct_Display_With_Suffix_And_Null_Display_Value() {
 
-        val SUFFIX = "TEST"
-        val DISPLAY_VALUE = null
+        val suffix = "TEST"
+        val displayValue = null
 
         val preference = Mockito.mock(SliderPreference::class.java)
-        preference.suffix = SUFFIX
-        Mockito.`when`(preference.getDisplayValue()).thenReturn(DISPLAY_VALUE)
+        preference.suffix = suffix
+        Mockito.`when`(preference.getDisplayValue()).thenReturn(displayValue)
 
         SliderPreferenceHelper().setCurrentPreferenceDisplay(preference)
 
         val summaryCaptor = ArgumentCaptor.forClass(CharSequence::class.java)
-        Mockito.verify(preference).setSummary(summaryCaptor.capture())
+        Mockito.verify(preference).summary = summaryCaptor.capture()
 
-        Assert.assertEquals("Wrong summary with suffix.", "0 $SUFFIX", summaryCaptor.value)
+        Assert.assertEquals("Wrong summary with suffix.", "0 $suffix", summaryCaptor.value)
     }
 
     @Test
     fun loadPreferenceSlider_Sets_Correct_Display_Without_Suffix_And_Null_Display_Value() {
 
-        val SUFFIX = null
-        val DISPLAY_VALUE = null
+        val suffix = null
+        val displayValue = null
 
         val preference = Mockito.mock(SliderPreference::class.java)
-        preference.suffix = SUFFIX
-        Mockito.`when`(preference.getDisplayValue()).thenReturn(DISPLAY_VALUE)
+        preference.suffix = suffix
+        Mockito.`when`(preference.getDisplayValue()).thenReturn(displayValue)
 
         SliderPreferenceHelper().setCurrentPreferenceDisplay(preference)
 
         val summaryCaptor = ArgumentCaptor.forClass(CharSequence::class.java)
-        Mockito.verify(preference).setSummary(summaryCaptor.capture())
+        Mockito.verify(preference).summary = summaryCaptor.capture()
 
         Assert.assertEquals("Wrong summary without suffix.", "0", summaryCaptor.value)
     }

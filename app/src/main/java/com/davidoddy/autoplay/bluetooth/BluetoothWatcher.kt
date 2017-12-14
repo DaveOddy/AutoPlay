@@ -17,7 +17,11 @@ import timber.log.Timber
 /**
  * Created by doddy on 12/6/17.
  */
-class BluetoothWatcher(val context: Context, val sharedPreferences: SharedPreferences, val mediaLauncherFactory: IMediaLauncher.Factory, val audioManager: AudioManager, val volumeAdjuster: IVolumeAdjuster) : BroadcastReceiver() {
+class BluetoothWatcher(val context: Context
+                       , private val sharedPreferences: SharedPreferences
+                       , private val mediaLauncherFactory: IMediaLauncher.Factory
+                       , private val audioManager: AudioManager
+                       , private val volumeAdjuster: IVolumeAdjuster) : BroadcastReceiver() {
 
     override fun onReceive(context: Context?, intent: Intent?) {
         val action = intent?.action
@@ -70,7 +74,7 @@ class BluetoothWatcher(val context: Context, val sharedPreferences: SharedPrefer
 
     private fun launchAudio(settings: AppSettings) {
         Timber.v("Launching audio: ${settings.playlist}")
-        IMediaLauncher.createForSettings(this.context, this.audioManager, settings).playMusic()
+        this.mediaLauncherFactory.createForSettings(this.context, this.audioManager, settings).playMusic()
     }
 
 

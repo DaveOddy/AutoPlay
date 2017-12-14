@@ -6,7 +6,7 @@ import com.davidoddy.autoplay.playlist.PlaylistProvider
 /**
  * Created by doddy on 12/11/17.
  */
-class PlaylistPreferenceHelper(val playlistProvider: PlaylistProvider) : ListPreferenceHelper() {
+class PlaylistPreferenceHelper(private val playlistProvider: PlaylistProvider) : ListPreferenceHelper() {
 
     override fun loadPreferenceList(preference: ListPreference) {
 

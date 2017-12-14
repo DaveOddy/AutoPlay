@@ -19,11 +19,11 @@ class AppSettings(val deviceAddress: String, val deviceName: String, val usePlay
             val delayInMilliseconds = sharedPreferences.getInt(context.getString(R.string.pref_delay), LAUNCH_DELAY)
             var volume: Int? = sharedPreferences.getInt(context.getString(R.string.pref_volume), -1)
 
-            if (device.length == 0 || (usePlaylist && playlist.length == 0)) {
+            if (device.isEmpty() || (usePlaylist && playlist.isEmpty())) {
                 return null
             }
 
-            if (playlist.length == 0) {
+            if (playlist.isEmpty()) {
                 playlist = null
             }
 

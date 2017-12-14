@@ -7,7 +7,7 @@ import android.provider.MediaStore
 import android.provider.MediaStore.EXTRA_MEDIA_FOCUS
 import android.provider.MediaStore.EXTRA_MEDIA_PLAYLIST
 import com.davidoddy.autoplay.BuildConfig
-import junit.framework.Assert.assertEquals
+import org.junit.Assert
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.ArgumentCaptor
@@ -35,9 +35,9 @@ class PlaylistMediaLauncherTest {
         val intentCaptor = ArgumentCaptor.forClass(Intent::class.java)
         Mockito.verify(context).startActivity(intentCaptor.capture())
 
-        assertEquals("Wrong intent action.", MediaStore.INTENT_ACTION_MEDIA_PLAY_FROM_SEARCH, intentCaptor.value.action)
-        assertEquals("Wrong focus extra.", MediaStore.Audio.Playlists.ENTRY_CONTENT_TYPE, intentCaptor.value.getStringExtra(EXTRA_MEDIA_FOCUS))
-        assertEquals("Wrong playlist extra.", dummyPlaylist, intentCaptor.value.getStringExtra(EXTRA_MEDIA_PLAYLIST))
-        assertEquals("Wrong playlist search extra.", dummyPlaylist, intentCaptor.value.getStringExtra(SearchManager.QUERY))
+        Assert.assertEquals("Wrong intent action.", MediaStore.INTENT_ACTION_MEDIA_PLAY_FROM_SEARCH, intentCaptor.value.action)
+        Assert.assertEquals("Wrong focus extra.", MediaStore.Audio.Playlists.ENTRY_CONTENT_TYPE, intentCaptor.value.getStringExtra(EXTRA_MEDIA_FOCUS))
+        Assert.assertEquals("Wrong playlist extra.", dummyPlaylist, intentCaptor.value.getStringExtra(EXTRA_MEDIA_PLAYLIST))
+        Assert.assertEquals("Wrong playlist search extra.", dummyPlaylist, intentCaptor.value.getStringExtra(SearchManager.QUERY))
     }
 }

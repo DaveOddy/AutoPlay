@@ -7,7 +7,7 @@ import android.preference.ListPreference
 /**
  * Created by doddy on 12/11/17.
  */
-class DevicePreferenceHelper(val bluetoothAdapter: BluetoothAdapter) : ListPreferenceHelper() {
+class DevicePreferenceHelper(private val bluetoothAdapter: BluetoothAdapter) : ListPreferenceHelper() {
 
     override fun loadPreferenceList(preference: ListPreference) {
 
