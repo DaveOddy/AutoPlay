@@ -28,9 +28,7 @@ class MainActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferenceCh
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
-        fab.setOnClickListener { view ->
-            launchPreferences(view)
-        }
+        fab.setOnClickListener(::launchPreferences)
 
         startService()
     }

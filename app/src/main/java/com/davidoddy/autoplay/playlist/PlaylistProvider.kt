@@ -17,16 +17,13 @@ open class PlaylistProvider(private val contentResolver: ContentResolver) : IPla
     override fun getPlaylists(): List<CharSequence> {
 
         val cursor = queryPlaylists()
-        return try {
+        return cursor.use { cursor ->
             val colIndex = cursor.getColumnIndex(COL_NAME)
             generateSequence { if (cursor.moveToNext()) cursor else null }
                     .map { c -> c.getString(colIndex) }
                     .distinctBy { it }
                     .sortedBy { it }
                     .toList()
-        }
-        finally {
-            cursor?.close()
         }
     }
 
