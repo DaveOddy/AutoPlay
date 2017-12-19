@@ -3,7 +3,7 @@ package com.davidoddy.autoplay.audio
 import android.content.Context
 import android.media.AudioManager
 import com.davidoddy.autoplay.model.AppSettings
-import junit.framework.Assert.assertEquals
+import org.junit.Assert
 import org.junit.Test
 import org.mockito.Mockito
 
@@ -23,7 +23,7 @@ class IMediaLauncherTest {
         val testLauncher: IMediaLauncher = IMediaLauncher.createForSettings(context, audioManager, settings)
 
         assert(testLauncher is PlaylistMediaLauncher, {"Wrong class created."})
-        assertEquals("Didn't create class with correct playlist", dummyPlaylist, (testLauncher as PlaylistMediaLauncher).playlist)
+        Assert.assertEquals("Didn't create class with correct playlist", dummyPlaylist, (testLauncher as PlaylistMediaLauncher).playlist)
     }
 
 

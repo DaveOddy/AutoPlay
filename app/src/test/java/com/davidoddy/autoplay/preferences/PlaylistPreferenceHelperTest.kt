@@ -2,7 +2,7 @@ package com.davidoddy.autoplay.preferences
 
 import android.preference.ListPreference
 import com.davidoddy.autoplay.playlist.PlaylistProvider
-import junit.framework.Assert
+import org.junit.Assert
 import org.junit.Test
 import org.mockito.ArgumentCaptor
 import org.mockito.Mockito
@@ -24,7 +24,7 @@ class PlaylistPreferenceHelperTest {
 
         val playlistProvider = Mockito.mock(PlaylistProvider::class.java)
 
-        val dummyPlaylists = listOf<String>(playlist1, playlist2, playlist3)
+        val dummyPlaylists = listOf(playlist1, playlist2, playlist3)
         Mockito.`when`(playlistProvider.getPlaylists()).thenReturn(dummyPlaylists)
 
         PlaylistPreferenceHelper(playlistProvider).loadPreferenceList(preference)
@@ -34,10 +34,10 @@ class PlaylistPreferenceHelperTest {
         val defaultValueCaptor = ArgumentCaptor.forClass(String::class.java)
         val summaryCaptor = ArgumentCaptor.forClass(String::class.java)
 
-        Mockito.verify(preference).setEntries(entriesCaptor.capture())
-        Mockito.verify(preference).setEntryValues(entryValuesCaptor.capture())
+        Mockito.verify(preference).entries = entriesCaptor.capture()
+        Mockito.verify(preference).entryValues = entryValuesCaptor.capture()
         Mockito.verify(preference).setDefaultValue(defaultValueCaptor.capture())
-        Mockito.verify(preference).setSummary(summaryCaptor.capture())
+        Mockito.verify(preference).summary = summaryCaptor.capture()
 
         Assert.assertEquals("Wrong array length for entries.", 3, entriesCaptor.value.size)
         Assert.assertEquals("Wrong entry #1.", playlist1, entriesCaptor.value[0])
@@ -73,10 +73,10 @@ class PlaylistPreferenceHelperTest {
         val entryValuesCaptor = ArgumentCaptor.forClass(Array<CharSequence>::class.java)
         val summaryCaptor = ArgumentCaptor.forClass(String::class.java)
 
-        Mockito.verify(preference).setEntries(entriesCaptor.capture())
-        Mockito.verify(preference).setEntryValues(entryValuesCaptor.capture())
+        Mockito.verify(preference).entries = entriesCaptor.capture()
+        Mockito.verify(preference).entryValues = entryValuesCaptor.capture()
         Mockito.verify(preference, Mockito.never()).setDefaultValue(Mockito.any())
-        Mockito.verify(preference).setSummary(summaryCaptor.capture())
+        Mockito.verify(preference).summary = summaryCaptor.capture()
 
         Assert.assertEquals("Wrong array length for entries.", 0, entriesCaptor.value.size)
         Assert.assertEquals("Wrong array length for values.", 0, entryValuesCaptor.value.size)

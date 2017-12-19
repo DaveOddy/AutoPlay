@@ -4,7 +4,7 @@ import android.content.Context
 import android.media.AudioManager
 import android.view.KeyEvent
 import com.davidoddy.autoplay.BuildConfig
-import junit.framework.Assert
+import org.junit.Assert
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.ArgumentCaptor

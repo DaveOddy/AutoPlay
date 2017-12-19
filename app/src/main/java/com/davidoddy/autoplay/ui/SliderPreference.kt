@@ -38,8 +38,8 @@ open class SliderPreference(context: Context, attrs: AttributeSet) : DialogPrefe
 
         private fun getResourceValue(context: Context, attrs: AttributeSet, resourceName: String): String? {
             val resourceId = attrs.getAttributeResourceValue(SliderPreference.ANDROID_NAMESPACE, resourceName, 0)
-            return when {
-                resourceId == 0 -> attrs.getAttributeValue(SliderPreference.ANDROID_NAMESPACE, resourceName)
+            return when (resourceId) {
+                0 -> attrs.getAttributeValue(SliderPreference.ANDROID_NAMESPACE, resourceName)
                 else -> context.getString(resourceId)
             }
         }
@@ -51,9 +51,6 @@ open class SliderPreference(context: Context, attrs: AttributeSet) : DialogPrefe
     private var valueText: TextView? = null
 
     var default: Int? = null
-        set(value) {
-            field = value
-        }
 
     var max: Int? = null
         set(value) {
@@ -61,8 +58,7 @@ open class SliderPreference(context: Context, attrs: AttributeSet) : DialogPrefe
             this.seekBar?.max = value ?: RESOURCE_MAX_DEFAULT
         }
 
-    var value: Int? = null
-        get() = field
+    private var value: Int? = null
         set(value) {
             field = value
             this.seekBar?.progress = value ?: 0
@@ -73,13 +69,9 @@ open class SliderPreference(context: Context, attrs: AttributeSet) : DialogPrefe
     }
 
     var suffix: String? = null
-        get() = field
 
 
     var displayCalculator: CalculateDisplayValue? = null
-        set(value) {
-            field = value
-        }
 
 
     init {
@@ -119,7 +111,7 @@ open class SliderPreference(context: Context, attrs: AttributeSet) : DialogPrefe
         this.splashText = TextView(this.context)
         this.splashText?.setPadding(SPLASH_PADDING_HORIZONTAL, SPLASH_PADDING_VERTICAL, SPLASH_PADDING_HORIZONTAL, SPLASH_PADDING_VERTICAL)
         if (this.dialogMessage != null) {
-            this.splashText?.setText(this.dialogMessage)
+            this.splashText?.text = this.dialogMessage
         }
         layout.addView(this.splashText)
     }
@@ -191,10 +183,10 @@ open class SliderPreference(context: Context, attrs: AttributeSet) : DialogPrefe
 
     override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
         val stringValue = calculateForDisplay(progress).toString()
-        this.valueText?.setText(when {
+        this.valueText?.text = when {
             this.suffix == null -> stringValue
-            else -> "${stringValue} ${this.suffix}"
-        })
+            else -> "$stringValue ${this.suffix}"
+        }
     }
 
     private fun calculateForDisplay(rawValue: Int?) : Int? {

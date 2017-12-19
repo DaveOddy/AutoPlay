@@ -3,6 +3,7 @@ package com.davidoddy.autoplay
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.content.Intent.ACTION_BOOT_COMPLETED
 import android.support.v4.content.ContextCompat.startForegroundService
 import timber.log.Timber
 
@@ -11,12 +12,10 @@ import timber.log.Timber
  */
 class StartupReceiver : BroadcastReceiver() {
 
-    companion object {
-        val TAG = StartupReceiver::class.simpleName
-    }
-
     override fun onReceive(context: Context?, intent: Intent?) {
-        startService(context)
+        if (intent?.action.equals(ACTION_BOOT_COMPLETED)) {
+            startService(context)
+        }
     }
 
     private fun startService(context: Context?) {

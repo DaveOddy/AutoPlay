@@ -10,7 +10,7 @@ open class ListPreferenceHelper : IListPreferenceHelper {
     override fun loadPreferenceList(preference: ListPreference) {}
 
     override fun setCurrentPreferenceDisplay(preference: ListPreference) {
-        preference.setSummary(preference.entry)
+        preference.summary = preference.entry
     }
 
     fun setArrays(preference: ListPreference, entriesArray: Array<CharSequence>, valuesArray: Array<CharSequence>) {
@@ -18,7 +18,7 @@ open class ListPreferenceHelper : IListPreferenceHelper {
         preference.entries = entriesArray
         preference.entryValues = valuesArray
 
-        if (valuesArray.size > 0) {
+        if (valuesArray.isNotEmpty()) {
             preference.setDefaultValue(valuesArray[0])
         }
 

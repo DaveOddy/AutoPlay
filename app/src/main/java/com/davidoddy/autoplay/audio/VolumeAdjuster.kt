@@ -8,7 +8,7 @@ import android.media.AudioManager.STREAM_MUSIC
 /**
  * Created by doddy on 12/8/17.
  */
-class VolumeAdjuster(val audioManager: AudioManager) : IVolumeAdjuster {
+class VolumeAdjuster(private val audioManager: AudioManager) : IVolumeAdjuster {
 
     companion object {
         private const val RAMP_UP = 3000L

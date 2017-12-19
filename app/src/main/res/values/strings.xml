@@ -1,14 +1,13 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">AutoPlay</string>
-    <string name="action_settings">Settings</string>
 
-    <string name="home_page_loading">Loading...</string>
-    <string name="home_page_pattern_playlist">Play &lt;b>%s&lt;/b> when connected to &lt;b>%s&lt;/b> after a &lt;b>%d second&lt;/b> delay.</string>
-    <string name="home_page_pattern_resume">Play msuic when connected to &lt;b>%s&lt;/b> after a &lt;b>%d second&lt;/b> delay.</string>
+    <string name="home_page_loading">Loading…</string>
+    <string name="home_page_pattern_playlist" tools:ignore="PluralsCandidate">Play &lt;b>%s&lt;/b> when connected to &lt;b>%s&lt;/b> after a &lt;b>%d second&lt;/b> delay.</string>
+    <string name="home_page_pattern_resume" tools:ignore="PluralsCandidate">Play music when connected to &lt;b>%s&lt;/b> after a &lt;b>%d second&lt;/b> delay.</string>
     <string name="home_page_empty">Complete settings to set up AutoPlay.</string>
 
     <string name="notification_title">AutoPlay</string>
-    <string name="notification_text">Watching for connections...</string>
+    <string name="notification_text">Watching for connections…</string>
 
     <string name="bluetooth_snackbar_text">Turn on Bluetooth to access settings</string>
 

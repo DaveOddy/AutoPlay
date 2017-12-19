@@ -28,9 +28,7 @@ class MainActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferenceCh
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
-        fab.setOnClickListener { view ->
-            launchPreferences(view)
-        }
+        fab.setOnClickListener(::launchPreferences)
 
         startService()
     }
@@ -66,17 +64,17 @@ class MainActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferenceCh
             view.setText(R.string.home_page_empty)
         }
         else {
-            view.setText(formatConfigurationForTextView(settings))
+            view.text = formatConfigurationForTextView(settings)
         }
     }
 
 
     private fun formatConfigurationForTextView(settings: AppSettings): CharSequence {
-        if (settings.usePlaylist) {
-            return Html.fromHtml(String.format(resources.getString(R.string.home_page_pattern_playlist), settings.playlist, settings.deviceName, settings.delayInMilliseconds / 1000), Html.FROM_HTML_MODE_COMPACT)
+        return if (settings.usePlaylist) {
+            Html.fromHtml(String.format(resources.getString(R.string.home_page_pattern_playlist), settings.playlist, settings.deviceName, settings.delayInMilliseconds / 1000), Html.FROM_HTML_MODE_COMPACT)
         }
         else {
-            return Html.fromHtml(String.format(resources.getString(R.string.home_page_pattern_resume), settings.deviceName, settings.delayInMilliseconds / 1000), Html.FROM_HTML_MODE_COMPACT)
+            Html.fromHtml(String.format(resources.getString(R.string.home_page_pattern_resume), settings.deviceName, settings.delayInMilliseconds / 1000), Html.FROM_HTML_MODE_COMPACT)
         }
     }
 
@@ -113,8 +111,8 @@ class MainActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferenceCh
 
 
     private fun shouldCountdownShow(percentage: Int) =
-            when {
-                percentage > 0 && percentage < 100 -> View.VISIBLE
+            when (percentage) {
+                in 1..99 -> View.VISIBLE
                 else -> View.INVISIBLE
-    }
+            }
 }

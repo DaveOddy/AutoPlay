@@ -3,7 +3,7 @@ package com.davidoddy.autoplay.model
 import android.content.Context
 import android.content.SharedPreferences
 import com.davidoddy.autoplay.R
-import junit.framework.Assert.*
+import org.junit.Assert
 import org.junit.Test
 import org.mockito.Mockito
 
@@ -21,6 +21,7 @@ class AppSettingsTest {
     private val defaultVolume = -1
 
     @Test
+    @Suppress
     fun fromSharedPreferences_Returns_Proper_Settings_For_Playlist_Configuration() {
 
         val sharedPreferences = Mockito.mock(SharedPreferences::class.java)
@@ -33,13 +34,13 @@ class AppSettingsTest {
 
         val settings = AppSettings.fromSharedPreferences(createMockContext(), sharedPreferences)
 
-        assertNotNull("Returned null settings", settings)
-        assertEquals("Wrong device address.", deviceAddress, settings!!.deviceAddress)
-        assertEquals("Wrong device name.", deviceName, settings!!.deviceName)
-        assertEquals("Wrong playlist option.", true, settings!!.usePlaylist)
-        assertEquals("Wrong playlist.", playlist, settings!!.playlist)
-        assertEquals("Wrong delay.", defaultDelay.toLong(), settings!!.delayInMilliseconds)
-        assertEquals("Wrong volume.", volume, settings!!.volume)
+        Assert.assertNotNull("Returned null settings", settings)
+        Assert.assertEquals("Wrong device address.", deviceAddress, settings!!.deviceAddress)
+        Assert.assertEquals("Wrong device name.", deviceName, settings.deviceName)
+        Assert.assertEquals("Wrong playlist option.", true, settings.usePlaylist)
+        Assert.assertEquals("Wrong playlist.", playlist, settings.playlist)
+        Assert.assertEquals("Wrong delay.", defaultDelay.toLong(), settings.delayInMilliseconds)
+        Assert.assertEquals("Wrong volume.", volume, settings.volume)
     }
 
 
@@ -56,13 +57,13 @@ class AppSettingsTest {
 
         val settings = AppSettings.fromSharedPreferences(createMockContext(), sharedPreferences)
 
-        assertNotNull("Returned null settings", settings)
-        assertEquals("Wrong device address.", deviceAddress, settings!!.deviceAddress)
-        assertEquals("Wrong device name.", deviceName, settings!!.deviceName)
-        assertEquals("Wrong playlist option.", false, settings!!.usePlaylist)
-        assertEquals("Wrong playlist.", playlist, settings!!.playlist)
-        assertEquals("Wrong delay.", defaultDelay.toLong(), settings!!.delayInMilliseconds)
-        assertEquals("Wrong volume.", volume, settings!!.volume)
+        Assert.assertNotNull("Returned null settings", settings)
+        Assert.assertEquals("Wrong device address.", deviceAddress, settings!!.deviceAddress)
+        Assert.assertEquals("Wrong device name.", deviceName, settings.deviceName)
+        Assert.assertEquals("Wrong playlist option.", false, settings.usePlaylist)
+        Assert.assertEquals("Wrong playlist.", playlist, settings.playlist)
+        Assert.assertEquals("Wrong delay.", defaultDelay.toLong(), settings.delayInMilliseconds)
+        Assert.assertEquals("Wrong volume.", volume, settings.volume)
     }
 
 
@@ -79,7 +80,7 @@ class AppSettingsTest {
 
         val settings = AppSettings.fromSharedPreferences(createMockContext(), sharedPreferences)
 
-        assertNull("Returned non-null settings", settings)
+        Assert.assertNull("Returned non-null settings", settings)
     }
 
 
@@ -96,7 +97,7 @@ class AppSettingsTest {
 
         val settings = AppSettings.fromSharedPreferences(createMockContext(), sharedPreferences)
 
-        assertNull("Returned non-null settings", settings)
+        Assert.assertNull("Returned non-null settings", settings)
     }
 
 
@@ -113,7 +114,7 @@ class AppSettingsTest {
 
         val settings = AppSettings.fromSharedPreferences(createMockContext(), sharedPreferences)
 
-        assertNull("Returned non-null settings", settings)
+        Assert.assertNull("Returned non-null settings", settings)
     }
 
 
@@ -130,13 +131,13 @@ class AppSettingsTest {
 
         val settings = AppSettings.fromSharedPreferences(createMockContext(), sharedPreferences)
 
-        assertNotNull("Returned null settings", settings)
-        assertEquals("Wrong device address.", deviceAddress, settings!!.deviceAddress)
-        assertEquals("Wrong device name.", deviceName, settings!!.deviceName)
-        assertEquals("Wrong playlist option.", false, settings!!.usePlaylist)
-        assertEquals("Wrong playlist.", null, settings!!.playlist)
-        assertEquals("Wrong delay.", defaultDelay.toLong(), settings!!.delayInMilliseconds)
-        assertEquals("Wrong volume.", volume, settings!!.volume)
+        Assert.assertNotNull("Returned null settings", settings)
+        Assert.assertEquals("Wrong device address.", deviceAddress, settings!!.deviceAddress)
+        Assert.assertEquals("Wrong device name.", deviceName, settings.deviceName)
+        Assert.assertEquals("Wrong playlist option.", false, settings.usePlaylist)
+        Assert.assertEquals("Wrong playlist.", null, settings.playlist)
+        Assert.assertEquals("Wrong delay.", defaultDelay.toLong(), settings.delayInMilliseconds)
+        Assert.assertEquals("Wrong volume.", volume, settings.volume)
     }
 
 
@@ -153,13 +154,13 @@ class AppSettingsTest {
 
         val settings = AppSettings.fromSharedPreferences(createMockContext(), sharedPreferences)
 
-        assertNotNull("Returned null settings", settings)
-        assertEquals("Wrong device address.", deviceAddress, settings!!.deviceAddress)
-        assertEquals("Wrong device name.", deviceName, settings!!.deviceName)
-        assertEquals("Wrong playlist option.", true, settings!!.usePlaylist)
-        assertEquals("Wrong playlist.", playlist, settings!!.playlist)
-        assertEquals("Wrong delay.", defaultDelay.toLong(), settings!!.delayInMilliseconds)
-        assertEquals("Wrong volume.", null, settings!!.volume)
+        Assert.assertNotNull("Returned null settings", settings)
+        Assert.assertEquals("Wrong device address.", deviceAddress, settings!!.deviceAddress)
+        Assert.assertEquals("Wrong device name.", deviceName, settings.deviceName)
+        Assert.assertEquals("Wrong playlist option.", true, settings.usePlaylist)
+        Assert.assertEquals("Wrong playlist.", playlist, settings.playlist)
+        Assert.assertEquals("Wrong delay.", defaultDelay.toLong(), settings.delayInMilliseconds)
+        Assert.assertEquals("Wrong volume.", null, settings.volume)
     }
 
 

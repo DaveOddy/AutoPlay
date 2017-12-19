@@ -10,11 +10,10 @@ import com.davidoddy.autoplay.model.AppSettings
 interface IMediaLauncher {
     companion object Factory {
         fun createForSettings(context: Context, audioManager: AudioManager, settings: AppSettings) : IMediaLauncher {
-            if (settings.usePlaylist) {
-                return PlaylistMediaLauncher(context, settings.playlist)
-            }
-            else {
-                return PlayMediaLauncher(context, audioManager)
+            return if (settings.usePlaylist) {
+                PlaylistMediaLauncher(context, settings.playlist)
+            } else {
+                PlayMediaLauncher(context, audioManager)
             }
 
         }
