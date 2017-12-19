@@ -64,7 +64,6 @@ class AppPreferencesFragment : PreferenceFragment() {
 
 
     private fun setListener() {
-
         this.changePreferenceListener = SharedPreferences.OnSharedPreferenceChangeListener {_, key: String -> run {
             setCurrentValue(key)
         }}

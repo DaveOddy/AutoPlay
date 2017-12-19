@@ -50,7 +50,7 @@ open class SliderPreference(context: Context, attrs: AttributeSet) : DialogPrefe
     private var splashText: TextView? = null
     private var valueText: TextView? = null
 
-    var default: Int? = null
+    var default: Int?
 
     var max: Int? = null
         set(value) {
@@ -68,7 +68,7 @@ open class SliderPreference(context: Context, attrs: AttributeSet) : DialogPrefe
         return calculateForDisplay(this.value)        // TODO: Can't use property getter because can't be mocked :(
     }
 
-    var suffix: String? = null
+    var suffix: String?
 
 
     var displayCalculator: CalculateDisplayValue? = null

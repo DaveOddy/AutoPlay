@@ -35,13 +35,15 @@ class BluetoothWatcher(val context: Context
 
 
     private fun onDeviceTurnedOn(device: BluetoothDevice?) {
-        val settings = AppSettings.fromSharedPreferences(this.context, this.sharedPreferences) ?: return
-        if (settings.deviceAddress == device?.address) {
-            if (settings.delayInMilliseconds > 0) {
-                scheduleLaunch(settings)
-            }
-            else {
-                launchAudio(settings)
+        val settings = AppSettings.fromSharedPreferences(this.context, this.sharedPreferences)
+        settings?.let {
+            if (settings.deviceAddress == device?.address) {
+                if (settings.delayInMilliseconds > 0) {
+                    scheduleLaunch(settings)
+                }
+                else {
+                    launchAudio(settings)
+                }
             }
         }
     }

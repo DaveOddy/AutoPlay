@@ -68,23 +68,6 @@ class AppSettingsTest {
 
 
     @Test
-    fun fromSharedPreferences_Returns_Null_When_Device_Is_Null() {
-
-        val sharedPreferences = Mockito.mock(SharedPreferences::class.java)
-
-        Mockito.`when`(sharedPreferences.getString("pref_device", "")).thenReturn(null)
-        Mockito.`when`(sharedPreferences.getBoolean("pref_use_playlist", false)).thenReturn(true)
-        Mockito.`when`(sharedPreferences.getString("pref_playlist", "")).thenReturn(playlist)
-        Mockito.`when`(sharedPreferences.getInt("pref_delay", defaultDelay)).thenReturn(defaultDelay)
-        Mockito.`when`(sharedPreferences.getInt("pref_volume", defaultVolume)).thenReturn(volume)
-
-        val settings = AppSettings.fromSharedPreferences(createMockContext(), sharedPreferences)
-
-        Assert.assertNull("Returned non-null settings", settings)
-    }
-
-
-    @Test
     fun fromSharedPreferences_Returns_Null_When_Device_Is_Empty() {
 
         val sharedPreferences = Mockito.mock(SharedPreferences::class.java)
