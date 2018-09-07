@@ -13,7 +13,7 @@ interface IMediaLauncher {
             return if (settings.usePlaylist) {
                 PlaylistMediaLauncher(context, settings.playlist)
             } else {
-                PlayMediaLauncher(context, audioManager)
+                PlayMediaLauncher(context, audioManager, settings.skipAhead)
             }
 
         }

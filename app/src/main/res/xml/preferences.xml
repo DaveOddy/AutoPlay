@@ -15,8 +15,11 @@
                 android:key="@string/pref_playlist"
                 android:title="@string/pref_playlist_title"
                 android:summary="@string/pref_playlist_summary"
-                android:dependency="@string/pref_use_playlist"
                 android:dialogTitle="@string/pref_playlist_title" />
+        <CheckBoxPreference
+            android:key="@string/pref_skip_ahead"
+            android:title="@string/pref_skip_ahead_title"
+            android:summary="@string/pref_skip_ahead_summary_off" />
         <com.davidoddy.autoplay.ui.SliderPreference
                 android:key="@string/pref_delay"
                 android:title="@string/pref_delay_title"

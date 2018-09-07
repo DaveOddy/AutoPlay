@@ -52,6 +52,7 @@ class AppPreferencesFragment : PreferenceFragment() {
                         , resources.getInteger(R.integer.pref_volume_default))
 
         setCurrentValue(getString(R.string.pref_use_playlist))
+        setCurrentValue(getString(R.string.pref_skip_ahead))
     }
 
 
@@ -80,12 +81,34 @@ class AppPreferencesFragment : PreferenceFragment() {
                 else -> SliderPreferenceHelper(null).setCurrentPreferenceDisplay(preference)
             }
             is CheckBoxPreference -> when (preference.key) {
-                getString(R.string.pref_use_playlist) ->
-                    CheckBoxPreferenceHelper().setCurrentPreferenceDisplay(
-                            preference,
-                            R.string.pref_use_playlist_summary_on,
-                            R.string.pref_use_playlist_summary_off)
+                getString(R.string.pref_use_playlist) -> setForPlaylistOption(preference)
+                getString(R.string.pref_skip_ahead) -> setForSkipAhead(preference)
             }
         }
+    }
+
+    private fun setForPlaylistOption(preference: CheckBoxPreference) {
+        CheckBoxPreferenceHelper().setCurrentPreferenceDisplay(
+                preference,
+                R.string.pref_use_playlist_summary_on,
+                R.string.pref_use_playlist_summary_off)
+
+
+        togglePlaylistPreferences(preference.isChecked)
+    }
+
+    private fun togglePlaylistPreferences(usePlaylistIsChecked: Boolean) {
+        val playlistPreference = findPreference(getString(R.string.pref_playlist))
+        val skipAheadPreference = findPreference(getString(R.string.pref_skip_ahead))
+
+        playlistPreference.isEnabled = usePlaylistIsChecked
+        skipAheadPreference.isEnabled = !usePlaylistIsChecked
+    }
+
+    private fun setForSkipAhead(preference: CheckBoxPreference) {
+        CheckBoxPreferenceHelper().setCurrentPreferenceDisplay(
+                preference,
+                R.string.pref_skip_ahead_summary_on,
+                R.string.pref_skip_ahead_summary_off)
     }
 }

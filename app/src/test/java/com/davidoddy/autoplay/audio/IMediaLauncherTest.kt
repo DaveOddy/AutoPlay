@@ -18,7 +18,7 @@ class IMediaLauncherTest {
         val context = Mockito.mock(Context::class.java)
         val audioManager = Mockito.mock(AudioManager::class.java)
         val dummyPlaylist = "DummyPlaylist"
-        val settings = AppSettings("DummyDeviceAddress", "DummyDeviceName", true, dummyPlaylist, 0, 0)
+        val settings = AppSettings("DummyDeviceAddress", "DummyDeviceName", true, dummyPlaylist, false, 0, 0)
 
         val testLauncher: IMediaLauncher = IMediaLauncher.createForSettings(context, audioManager, settings)
 
@@ -29,11 +29,11 @@ class IMediaLauncherTest {
 
 
     @Test
-    fun createForSettings_returns_PlayMediaLauncher_for_settings_using_playlist() {
+    fun createForSettings_returns_PlayMediaLauncher_for_settings_not_using_playlist() {
 
         val context = Mockito.mock(Context::class.java)
         val audioManager = Mockito.mock(AudioManager::class.java)
-        val settings = AppSettings("DummyDeviceAddress", "DummyDeviceName", false, null, 0, 0)
+        val settings = AppSettings("DummyDeviceAddress", "DummyDeviceName", false, null, false, 0, 0)
 
         val testLauncher: IMediaLauncher = IMediaLauncher.createForSettings(context, audioManager, settings)
 

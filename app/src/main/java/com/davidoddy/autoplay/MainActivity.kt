@@ -74,7 +74,11 @@ class MainActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferenceCh
             Html.fromHtml(String.format(resources.getString(R.string.home_page_pattern_playlist), settings.playlist, settings.deviceName, settings.delayInMilliseconds / 1000), Html.FROM_HTML_MODE_COMPACT)
         }
         else {
-            Html.fromHtml(String.format(resources.getString(R.string.home_page_pattern_resume), settings.deviceName, settings.delayInMilliseconds / 1000), Html.FROM_HTML_MODE_COMPACT)
+            if (settings.skipAhead) {
+                Html.fromHtml(String.format(resources.getString(R.string.home_page_pattern_resume_skip_ahead), settings.deviceName, settings.delayInMilliseconds / 1000), Html.FROM_HTML_MODE_COMPACT)
+            } else {
+                Html.fromHtml(String.format(resources.getString(R.string.home_page_pattern_resume), settings.deviceName, settings.delayInMilliseconds / 1000), Html.FROM_HTML_MODE_COMPACT)
+            }
         }
     }
 

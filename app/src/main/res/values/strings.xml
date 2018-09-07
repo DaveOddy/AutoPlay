@@ -4,6 +4,7 @@
     <string name="home_page_loading">Loading…</string>
     <string name="home_page_pattern_playlist" tools:ignore="PluralsCandidate">Play &lt;b>%s&lt;/b> when connected to &lt;b>%s&lt;/b> after a &lt;b>%d second&lt;/b> delay.</string>
     <string name="home_page_pattern_resume" tools:ignore="PluralsCandidate">Play music when connected to &lt;b>%s&lt;/b> after a &lt;b>%d second&lt;/b> delay.</string>
+    <string name="home_page_pattern_resume_skip_ahead" tools:ignore="PluralsCandidate">Play music when connected to &lt;b>%s&lt;/b> after a &lt;b>%d second&lt;/b> delay. (Skipping to next track.)</string>
     <string name="home_page_empty">Complete settings to set up AutoPlay.</string>
 
     <string name="notification_title">AutoPlay</string>
@@ -23,6 +24,10 @@
     <string name="pref_use_playlist_title">Use Playlist</string>
     <string name="pref_use_playlist_summary_on">Choose a playlist for AutoPlay.</string>
     <string name="pref_use_playlist_summary_off">Resume currently playing music.</string>
+
+    <string name="pref_skip_ahead_title">Skip Ahead</string>
+    <string name="pref_skip_ahead_summary_on">Skip to next item when connected.</string>
+    <string name="pref_skip_ahead_summary_off">Continue playing current item when connected.</string>
 
     <string name="pref_playlist_title">Playlist</string>
     <string name="pref_playlist_summary">Select a playlist to start when device connects.</string>
